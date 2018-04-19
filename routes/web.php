@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware('auth:web')->get('/users', 'UsersController@display')->name('user_tab');
+
 Route::middleware('auth:web')->get('/chats', 'ChatsController@index')->name('chat');
 
 Route::middleware('auth:web')->get('/contacts', 'ContactsController@display')->name('contact_list');

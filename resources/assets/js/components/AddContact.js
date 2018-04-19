@@ -6,7 +6,7 @@ import Input from 'react-validation/build/input';
 export default class AddContact extends Component {
 
 	constructor(props) {
-		console.log(props);
+		//console.log(props);
 		super(props);
 		/* Initialize the state. */
 		this.state = {
@@ -33,13 +33,13 @@ export default class AddContact extends Component {
 		if(!fields["name"]){
 			formIsValid = false;
 			errors["name"] = "Name is required.";
-		
+
 		} else if(typeof fields["name"] !== "undefined"){
-			
+
 			if(!fields["name"].match(/^[a-zA-Z ]+$/)){
 				formIsValid = false;
 				errors["name"] = "Only letters with space";
-			}      	
+			}
 		}
 
 		//Mobile
@@ -52,7 +52,7 @@ export default class AddContact extends Component {
 			if(!fields["mobile"].match(/^[0-9]+$/)){
 				formIsValid = false;
 				errors["mobile"] = "Only digits";
-			}      	
+			}
 		}
 
 		/*
@@ -89,14 +89,14 @@ export default class AddContact extends Component {
 	/* This method dynamically accepts inputs and stores it in the state */
 	handleInput(key, e) {
 		/*Duplicating and updating the state */
-		var state = Object.assign({}, this.state.newContact); 
+		var state = Object.assign({}, this.state.newContact);
 		state[key] = e.target.value;
 		this.setState({newContact: state });
 	}
 
 	/* This method is invoked when submit button is pressed */
 	handleSubmit(e) {
-		//preventDefault prevents page reload   
+		//preventDefault prevents page reload
 		e.preventDefault();
 		/*A call back to the onAdd props. The current
 		*state is passed as a param
@@ -122,7 +122,7 @@ export default class AddContact extends Component {
 
 		return(
 			<div className="col-sm-4">
-				<div className="row"> 
+				<div className="row">
 					<h2> Add New Contact </h2>
 				</div>
 				<div className="row">
@@ -159,8 +159,8 @@ export default class AddContact extends Component {
 			                    <span style={{color: "red"}}>{this.state.errors["address2"]}</span>
 			                </div>
 			            </div>
-			            
-			            <div className="form-group"> 
+
+			            <div className="form-group">
 			                <div className="col-sm-offset-2 col-sm-10">
 			                    <button type="submit" className="btn btn-default">Add Contact</button>
 			                </div>

@@ -45,6 +45,7 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
 
                         @else
+                            <li><a class="nav-link" href="{{ route('user_tab') }}">{{ __('Users') }}</a></li>
                             <li><a class="nav-link" href="{{ route('chat') }}">{{ __('OpenChat') }}</a></li>
                             <li><a class="nav-link" href="{{ route('contact_list') }}">{{ __('My Contacts') }}</a></li>
 
