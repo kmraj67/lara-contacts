@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 
 export default class UserList extends Component {
 
@@ -6,16 +6,72 @@ export default class UserList extends Component {
         //console.log(props);
         super(props);
         this.state = {
-			users: []
+			users: [],
+            url: '/api/users',
+            pagination: []
 		}
     }
 
     componentDidMount() {
-		fetch('/api/users').then(response => {
-			return response.json();
-        }).then(users => {
-        	this.setState({ users });
+        this.fetchUsers();
+
+        // fetch(this.state.url).then(response => {
+		// 	return response.json();
+        // }).then(users => {
+        // 	this.setState({ users });
+        // });
+    }
+
+    fetchUsers() {
+        let $this = this;
+        axios.get($this.state.url).then(response => {
+            $this.setState({
+                users: response.data,
+                url: response.data.next_page_url
+            });
+
+            $this.makePagination(response.data);
+        })
+        .catch(error => {
+            console.log(error);
         });
+    }
+
+    loadMore() {
+        this.setState({
+            url: this.state.pagination.next_page_url
+        });
+
+        this.fetchUsers();
+    }
+
+    loadNext() {
+        this.setState({
+            url: this.state.pagination.next_page_url
+        });
+
+        this.fetchUsers();
+    }
+
+    loadPrev() {
+        this.setState({
+            url: this.state.pagination.prev_page_url
+        });
+
+        this.fetchUsers();
+    }
+
+    makePagination(data) {
+        let pagination = {
+            current_page: data.current_page,
+            last_page: data.last_page,
+            next_page_url: data.next_page_url,
+            prev_page_url: data.prev_page_url,
+        }
+
+        this.setState({
+            pagination: pagination
+        })
     }
 
     renderUsers() {
@@ -27,7 +83,7 @@ export default class UserList extends Component {
             );
         }
 
-        return this.state.users.map(user => {
+        return this.state.users.data.map(user => {
             return (
     			/* When using list you need to specify a key
     			* attribute that is unique for each list item
@@ -66,6 +122,9 @@ export default class UserList extends Component {
                                 { this.renderUsers() }
                             </tbody>
                         </table>
+                        <button className="btn btn-primary" onClick={this.loadPrev.bind(this)} >Prev</button>
+                        &nbsp;&nbsp;
+                        <button className="btn btn-primary" onClick={this.loadNext.bind(this)} >Next</button>
                     </div>
                 </div>
             </div>

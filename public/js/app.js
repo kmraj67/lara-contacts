@@ -55032,7 +55032,9 @@ var UserList = function (_Component) {
 
 
         _this.state = {
-            users: []
+            users: [],
+            url: '/api/users',
+            pagination: []
         };
         return _this;
     }
@@ -55040,12 +55042,68 @@ var UserList = function (_Component) {
     _createClass(UserList, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            this.fetchUsers();
 
-            fetch('/api/users').then(function (response) {
-                return response.json();
-            }).then(function (users) {
-                _this2.setState({ users: users });
+            // fetch(this.state.url).then(response => {
+            // 	return response.json();
+            // }).then(users => {
+            // 	this.setState({ users });
+            // });
+        }
+    }, {
+        key: 'fetchUsers',
+        value: function fetchUsers() {
+            var $this = this;
+            axios.get($this.state.url).then(function (response) {
+                $this.setState({
+                    users: response.data,
+                    url: response.data.next_page_url
+                });
+
+                $this.makePagination(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'loadMore',
+        value: function loadMore() {
+            this.setState({
+                url: this.state.pagination.next_page_url
+            });
+
+            this.fetchUsers();
+        }
+    }, {
+        key: 'loadNext',
+        value: function loadNext() {
+            this.setState({
+                url: this.state.pagination.next_page_url
+            });
+
+            this.fetchUsers();
+        }
+    }, {
+        key: 'loadPrev',
+        value: function loadPrev() {
+            this.setState({
+                url: this.state.pagination.prev_page_url
+            });
+
+            this.fetchUsers();
+        }
+    }, {
+        key: 'makePagination',
+        value: function makePagination(data) {
+            var pagination = {
+                current_page: data.current_page,
+                last_page: data.last_page,
+                next_page_url: data.next_page_url,
+                prev_page_url: data.prev_page_url
+            };
+
+            this.setState({
+                pagination: pagination
             });
         }
     }, {
@@ -55063,7 +55121,7 @@ var UserList = function (_Component) {
                 );
             }
 
-            return this.state.users.map(function (user) {
+            return this.state.users.data.map(function (user) {
                 return (
                     /* When using list you need to specify a key
                     * attribute that is unique for each list item
@@ -55156,6 +55214,17 @@ var UserList = function (_Component) {
                                 null,
                                 this.renderUsers()
                             )
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { className: 'btn btn-primary', onClick: this.loadPrev.bind(this) },
+                            'Prev'
+                        ),
+                        '\xA0\xA0',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { className: 'btn btn-primary', onClick: this.loadNext.bind(this) },
+                            'Next'
                         )
                     )
                 )
