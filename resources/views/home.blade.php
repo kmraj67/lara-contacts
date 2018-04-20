@@ -19,5 +19,6 @@
             </div>
         </div>
     </div>
+    <div id="redux_example"></div>
 </div>
 @endsection

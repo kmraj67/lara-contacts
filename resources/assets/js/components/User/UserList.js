@@ -1,4 +1,4 @@
-  import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 export default class UserList extends Component {
 
@@ -12,22 +12,17 @@ export default class UserList extends Component {
 		}
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.fetchUsers();
-
-        // fetch(this.state.url).then(response => {
-		// 	return response.json();
-        // }).then(users => {
-        // 	this.setState({ users });
-        // });
     }
 
     fetchUsers() {
         let $this = this;
+        //console.log($this.state.users.length);
         axios.get($this.state.url).then(response => {
+            //console.log(response.data.data);
             $this.setState({
-                users: $this.state.users.length > 0 ? $this.state.users.concat(response.data) : response.data,
-                //users: response.data,
+                users: $this.state.users.length > 0 ? $this.state.users.concat(response.data.data) : response.data.data,
                 url: response.data.next_page_url
             });
 
@@ -84,7 +79,7 @@ export default class UserList extends Component {
             );
         }
 
-        return this.state.users.data.map(user => {
+        return this.state.users.map(user => {
             return (
     			/* When using list you need to specify a key
     			* attribute that is unique for each list item

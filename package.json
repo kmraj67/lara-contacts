@@ -24,6 +24,8 @@
     "dependencies": {
         "ajv": "^6.4.0",
         "react-laravel-paginator": "^0.1.6",
-        "react-validation": "^3.0.7"
+        "react-router-dom": "^4.2.2",
+        "react-validation": "^3.0.7",
+        "redux": "^4.0.0"
     }
 }
