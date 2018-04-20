@@ -26,7 +26,8 @@ export default class UserList extends Component {
         let $this = this;
         axios.get($this.state.url).then(response => {
             $this.setState({
-                users: response.data,
+                users: $this.state.users.length > 0 ? $this.state.users.concat(response.data) : response.data,
+                //users: response.data,
                 url: response.data.next_page_url
             });
 
@@ -122,9 +123,10 @@ export default class UserList extends Component {
                                 { this.renderUsers() }
                             </tbody>
                         </table>
-                        <button className="btn btn-primary" onClick={this.loadPrev.bind(this)} >Prev</button>
+                        <button className="btn btn-primary" onClick={this.loadMore.bind(this)} >Load More</button>
+                        {/* <button className="btn btn-primary" onClick={this.loadPrev.bind(this)} >Prev</button>
                         &nbsp;&nbsp;
-                        <button className="btn btn-primary" onClick={this.loadNext.bind(this)} >Next</button>
+                        <button className="btn btn-primary" onClick={this.loadNext.bind(this)} >Next</button> */}
                     </div>
                 </div>
             </div>

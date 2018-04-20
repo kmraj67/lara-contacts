@@ -55056,7 +55056,8 @@ var UserList = function (_Component) {
             var $this = this;
             axios.get($this.state.url).then(function (response) {
                 $this.setState({
-                    users: response.data,
+                    users: $this.state.users.length > 0 ? $this.state.users.concat(response.data) : response.data,
+                    //users: response.data,
                     url: response.data.next_page_url
                 });
 
@@ -55217,14 +55218,8 @@ var UserList = function (_Component) {
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
-                            { className: 'btn btn-primary', onClick: this.loadPrev.bind(this) },
-                            'Prev'
-                        ),
-                        '\xA0\xA0',
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { className: 'btn btn-primary', onClick: this.loadNext.bind(this) },
-                            'Next'
+                            { className: 'btn btn-primary', onClick: this.loadMore.bind(this) },
+                            'Load More'
                         )
                     )
                 )
