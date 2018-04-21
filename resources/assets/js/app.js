@@ -16,6 +16,7 @@ require('./bootstrap');
 require('./components/LiveChat');
 
 require('./components/Example');
+require('./components/ReduxExample');
 require('./components/User/User');
 
 require('./components/Main');
