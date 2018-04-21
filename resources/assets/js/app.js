@@ -13,6 +13,8 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+require('./components/LiveChat');
+
 require('./components/Example');
 require('./components/User/User');
 
