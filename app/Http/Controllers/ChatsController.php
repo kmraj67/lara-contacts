@@ -51,6 +51,11 @@ class ChatsController extends Controller
         
         broadcast(new MessageSent($user, $message))->toOthers();
       
-        return ['status' => 'Message Sent!'];
+        return ['status' => 'Message Sent!', 'data' => Message::whereId($message->id)->with('user')->first()];
+    }
+
+    public function show(Message $message)
+    {
+        return $message;
     }
 }
