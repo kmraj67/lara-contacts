@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { WithEmit } from "react-emit";
+//import { WithEmit } from "react-emit";
+
+import socketIOClient from 'socket.io-client';
 
 import ChatMessages from './ChatMessages';
 //import ChatForm from './ChatForm';
@@ -14,7 +16,8 @@ export default class LiveChat extends Component {
 		this.state = {
 			messages: [],
             user: props.user,
-			message: ''
+			message: '',
+            endpoint: 'http://127.0.0.1:6001'
 		}
 	}
 
@@ -22,19 +25,10 @@ export default class LiveChat extends Component {
         let $this = this;
         this.fetchMessages();
         //console.log(this.state);
-        
-        window.Echo.private('chat')
-        .listen('MessageSent', (e) => {
-            console.log(e);
-        });
 
-        Echo.private('chat')
+        Echo.channel('chat')
         .listen('MessageSent', (e) => {
             console.log('I am here!');
-            this.messages.push({
-                //message: $this.,
-                //user: $this.state.user
-            });
         });
     }
 
@@ -56,20 +50,29 @@ export default class LiveChat extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
+
         if(this.state.message != '') {
-            axios.post('/messages', this.state.message)
-            .then(response => {
-                this.setState((prevState)=> ({
-                    messages: prevState.messages.concat(response.data.data)
-                }));
-                document.getElementById('btn-input').value = '';
-                this.state.message = '';
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            const socket = socketIOClient(this.state.endpoint);
+            this.addMessage();
+            // socket.emit('messagesent', {
+            //     user: this.user,
+            //     message: this.message
+            // });
         }
+    }
+
+    addMessage() {
+        axios.post('/messages', this.state.message)
+        .then(response => {
+            this.setState((prevState)=> ({
+                messages: prevState.messages.concat(response.data.data)
+            }));
+            document.getElementById('btn-input').value = '';
+            this.state.message = '';
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     renderChatForm() {
