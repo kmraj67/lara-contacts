@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import validator from 'validator';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
+//import Form from 'react-validation/build/form';
+//import Input from 'react-validation/build/input';
 
 export default class AddContact extends Component {
 

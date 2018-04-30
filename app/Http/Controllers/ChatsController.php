@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Redis;
 use App\Events\MessageSent;
+use App\Message;
+
 
 class ChatsController extends Controller
 {
@@ -14,7 +16,7 @@ class ChatsController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
     * Show chats
     *
@@ -34,7 +36,7 @@ class ChatsController extends Controller
     {
         return Message::with('user')->get();
     }
-    
+
     /**
      * Persist message to database
      *
@@ -43,15 +45,20 @@ class ChatsController extends Controller
      */
     public function sendMessage(Request $request)
     {
+        //$redis = Redis::connection();
+
         $user = Auth::user();
-      
+
         $message = $user->messages()->create([
           'message' => $request->input('message')
         ]);
-        
-        broadcast(new MessageSent($user, $message))->toOthers();
-      
-        return ['status' => 'Message Sent!', 'data' => Message::whereId($message->id)->with('user')->first()];
+
+        $data = Message::whereId($message->id)->with('user')->first();
+
+        //$redis->publish('chat', json_encode($data));
+        broadcast(new MessageSent($data))->toOthers();
+
+        return ['status' => 'Message Sent!', 'data' => $data];
     }
 
     public function show(Message $message)

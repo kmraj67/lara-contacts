@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+
 //import { WithEmit } from "react-emit";
 
-import socketIOClient from 'socket.io-client';
+//import socketIOClient from 'socket.io-client';
 
 import ChatMessages from './ChatMessages';
 //import ChatForm from './ChatForm';
@@ -26,10 +27,25 @@ export default class LiveChat extends Component {
         this.fetchMessages();
         //console.log(this.state);
 
-        Echo.channel('chat')
+        // const socket = socketIOClient(this.state.endpoint);
+        // socket.on('MessageSent', (e) => {
+        //     console.log('Herert');
+        // });
+
+        window.Echo.channel('public_chat')
         .listen('MessageSent', (e) => {
-            console.log('I am here!');
+            //console.log(e.message);
+            //console.log('I am here!');
+            this.setState((prevState)=> ({
+                messages: prevState.messages.concat(e.message)
+            }));
         });
+
+        $("#chat-panel").animate({ scrollTop: $("#chat-panel").prop("scrollHeight")}, 1000);
+    }
+
+    componentDidUpdate() {
+        $("#chat-panel").animate({ scrollTop: $("#chat-panel").prop("scrollHeight")}, 1000);
     }
 
     fetchMessages() {
@@ -52,7 +68,7 @@ export default class LiveChat extends Component {
         e.preventDefault();
 
         if(this.state.message != '') {
-            const socket = socketIOClient(this.state.endpoint);
+            //const socket = socketIOClient(this.state.endpoint);
             this.addMessage();
             // socket.emit('messagesent', {
             //     user: this.user,
@@ -69,6 +85,7 @@ export default class LiveChat extends Component {
             }));
             document.getElementById('btn-input').value = '';
             this.state.message = '';
+            //console.log(response.data);
         })
         .catch(error => {
             console.log(error);
@@ -95,7 +112,7 @@ export default class LiveChat extends Component {
     render() {
         return(
             <div>
-                <div className="panel-body">
+                <div id="chat-panel" className="panel-body">
                     <ul className="chat">
                         <ChatMessages messages={this.state.messages} />
                     </ul>
