@@ -10,56 +10,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/chatroom.css') }}" rel="stylesheet">
 
-    <style>
-  .chat {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .chat li {
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-  }
-
-  .chat li .chat-body p {
-    margin: 0;
-    color: #777777;
-  }
-
-  .panel-body {
-    overflow-y: scroll;
-    height: 350px;
-  }
-
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-  }
-
-  ::-webkit-scrollbar {
-    width: 12px;
-    background-color: #F5F5F5;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #555;
-  }
-</style>
+    <!-- Fonts -->
+    <link href="{{ asset('font-awesome-4.1.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="app">
@@ -114,9 +70,23 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
+    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script type="text/javascript">
+	    // $(document).ready(function(){
+	    //     var height = $(window).height();
+        //     alert(height);
+	    //     $('.left-chat-section').css('height', (height - 65) + 'px');
+	    //     $('.right-chat-section2').css('height', (height - 65) + 'px');
+	    //     $('.middle-section').css('height', (height - 235) + 'px');
+	    // });
+	</script>
 </body>
 </html>

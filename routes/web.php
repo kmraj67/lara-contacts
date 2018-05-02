@@ -29,4 +29,7 @@ Route::post('messages', 'ChatsController@sendMessage');
 
 Route::middleware('auth:web')->get('/contacts', 'ContactsController@display')->name('contact_list');
 
+// Chat Room Routing
+Route::get('/private-chat', 'PrivateChatController@index')->name('private_chat');
+
 Route::get('/home', 'HomeController@index')->name('home');
