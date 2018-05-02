@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 //import { createStore } from "redux";
 
-//import UserList from './UserList';
+import ListMessages from './ListMessages';
+import ChatHeader from './ChatHeader';
+import ChatBox from './ChatBox';
 
 export default class Chat extends Component {
 
@@ -36,15 +38,23 @@ export default class Chat extends Component {
             console.log(error);
         });
     }
-    
+
     render() {
         return (
-            <UserList users={this.state.users} />
+            <div>
+                <ChatHeader chat_users={this.state.user} />
+                <div className="row middle-section">
+                    <div className="col-lg-12">
+                        <ListMessages messages={this.state.messages} />
+                    </div>
+                </div>
+                <ChatBox />
+            </div>
         );
     }
 
 }
 
-if (document.getElementById('user_page')) {
-    ReactDOM.render(<User />, document.getElementById('user_page'));
+if (document.getElementById('chat-section')) {
+    ReactDOM.render(<Chat />, document.getElementById('chat-section'));
 }
