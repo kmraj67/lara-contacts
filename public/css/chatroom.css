@@ -42,7 +42,7 @@
 .right-chat-section .middle-section {
     padding-top: 20px;
     padding-bottom: 20px;
-    overflow-y: auto;
+    overflow-y: hidden;
     height: 450px;
 }
 
@@ -66,15 +66,34 @@
     border-radius: 5px;
     background-color: #f4e6f2;
     margin-bottom: 10px;
+    transform: rotate(180deg);
+    direction: rtl;
 }
 
-.middle-section .message-div .messae-heading span {
+.middle-section .message-div .messae-heading {
+    float: left;
+    width: 100%;
+}
+
+.middle-section .message-div .messae-heading .username {
     font-size: 14px;
-    text-align: right;
+    font-weight: bold;
+    float: left;
+}
+
+.middle-section .message-div .messae-heading .msgdate {
+    font-size: 13px;
     float: right;
 }
 
-.middle-section .message-div p {
+.middle-section .message-div .msg {
     padding: 0px;
     margin: 0px;
+    width: 100%;
+}
+
+#messages-list-div {
+    overflow-y: auto;
+    transform: rotate(180deg);
+    direction: rtl;
 }

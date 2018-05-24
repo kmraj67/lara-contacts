@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 //import { createStore } from "redux";
+import moment from 'moment';
 
 import ListMessages from './ListMessages';
 import ChatHeader from './ChatHeader';
@@ -27,6 +28,14 @@ export default class Chat extends Component {
                 messages: prevState.messages.concat(e.message)
             }));
         });
+        this.scrollToDown();
+    }
+
+    scrollToDown() {
+        let divHeight = $("#messages-list-div").prop("scrollHeight");
+        console.log(divHeight);
+        //$("#messages-list-div").scrollTo(0);
+        //$("#messages-list-div").stop().animate({ scrollTop: $("#messages-list-div").prop("scrollHeight")stop()}, 1000);
     }
 
     fetchMessages() {
@@ -44,7 +53,7 @@ export default class Chat extends Component {
             <div>
                 <ChatHeader chat_users={this.state.user} />
                 <div className="row middle-section">
-                    <div className="col-lg-12">
+                    <div className="col-lg-12" id="messages-list-div">
                         <ListMessages messages={this.state.messages} />
                     </div>
                 </div>

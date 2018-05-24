@@ -6,10 +6,10 @@ const ListMessages = ({messages}) => {
         return (
             <div key={message.id} className="message-div">
                 <div className="messae-heading">
-                    <strong>{ message.user.first_name }:</strong>
-                    <span>May 2, 2018</span>
+                    <div className="username">{ message.user.first_name }</div>
+                    <div className="msgdate">{ moment() }</div>
                 </div>
-                <p>{ message.message }</p>
+                <div className="msg">{ message.message }</div>
             </div>
 		);
 	});
