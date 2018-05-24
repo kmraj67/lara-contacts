@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import ListMessages from './ListMessages';
 import ChatHeader from './ChatHeader';
-import ChatBox from './ChatBox';
 
 export default class Chat extends Component {
 
@@ -33,9 +32,15 @@ export default class Chat extends Component {
 
     scrollToDown() {
         let divHeight = $("#messages-list-div").prop("scrollHeight");
-        console.log(divHeight);
+        //console.log(divHeight);
         //$("#messages-list-div").scrollTo(0);
         //$("#messages-list-div").stop().animate({ scrollTop: $("#messages-list-div").prop("scrollHeight")stop()}, 1000);
+    }
+
+    handleInput(key, e) {
+        var state = Object.assign({}, this.state.message);
+        state['message'] = e.target.value;
+        this.setState({message: state });
     }
 
     fetchMessages() {
@@ -48,6 +53,42 @@ export default class Chat extends Component {
         });
     }
 
+    handleSubmit(e) {
+        e.preventDefault();
+
+        if(this.state.message != '') {
+            axios.post('/messages', this.state.message)
+            .then(response => {
+                this.setState((prevState)=> ({
+                    messages: prevState.messages.concat(response.data.data)
+                }));
+                document.getElementById('btn-input').value = '';
+                this.state.message = '';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    }
+
+    chatForm() {
+        return(            
+            <div className="row bottom-section">
+                <div className="col-lg-12">
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <div className="input-group">
+                            <input id="btn-input" name="message" type="text" className="form-control chat-text-box"
+                            placeholder="Type your message here..." onChange={(e)=>this.handleInput('message', e)}/>
+                            <div className="input-group-append">
+                                <button className="btn btn-outline-secondary" id="btn-chat" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -57,8 +98,9 @@ export default class Chat extends Component {
                         <ListMessages messages={this.state.messages} />
                     </div>
                 </div>
-                <ChatBox />
-            </div>
+
+                { this.chatForm() }
+            </div>                        
         );
     }
 
