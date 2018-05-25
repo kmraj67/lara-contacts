@@ -1,0 +1,84 @@
+.left-chat-section {
+    background-color: #4D394B;
+    border-right: 1px solid #CCC;
+}
+
+.left-chat-section .left-chat-box {
+    min-height: 70px;
+    margin-bottom: 20px;
+}
+
+.left-chat-section .left-chat-box ul {
+    width: 100%;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.left-chat-section .left-chat-box ul li {
+    width: 100%;
+    list-style: none;
+    color: #FFF;
+    line-height: 25px;
+}
+
+.left-chat-section h4 {
+    color: #FFF;
+    padding: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-bottom: 1px dotted #CCC; 
+}
+
+.right-chat-section {
+}
+
+.right-chat-section .top-section {
+    border-bottom: 1px solid #CCC;
+    height: 70px;
+}
+
+.right-chat-section .middle-section {
+    padding-top: 20px;
+    padding-bottom: 20px; 
+    overflow-y: hidden;
+    height: 450px;
+}
+
+.right-chat-section .bottom-section {
+    border-top: 0px solid #CCC;
+    height: 100px;
+}
+
+.bottom-section .input-group .chat-text-box {
+    margin-top: 20px;
+    height: 60px;
+}
+
+.bottom-section .input-group .input-group-append {
+    margin-top: 20px;
+}
+
+.middle-section .message-div {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f4e6f2;
+    margin-bottom: 10px;
+}
+
+.middle-section .message-div .messae-heading span {
+    font-size: 14px;
+    text-align: right;
+    float: right;
+}   
+
+.middle-section .message-div p {
+    padding: 0px;
+    margin: 0px;
+}
+
+#messages-list-div {
+    overflow-y: auto;
+}
