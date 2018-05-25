@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 const ListMessages = ({messages}) => {
-
     return messages.map(message => {
         return (
             <div key={message.id} className="message-div">
                 <div className="messae-heading">
-                    <div className="username">{ message.user.first_name }</div>
-                    <div className="msgdate">{ moment(message.created_at).format('MMM D, YYYY hh:mm A') }</div>
+                    <strong>{ message.user.first_name }:</strong>
+                    <span>{ moment(message.created_at).format('MMM D, YYYY hh:mm A') }</span>
                 </div>
-                <div className="msg">{ message.message }</div>
+                <p>{ message.message }</p>
             </div>
 		);
 	});

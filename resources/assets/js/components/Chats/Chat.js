@@ -27,14 +27,15 @@ export default class Chat extends Component {
                 messages: prevState.messages.concat(e.message)
             }));
         });
-        this.scrollToDown();
     }
 
-    scrollToDown() {
-        let divHeight = $("#messages-list-div").prop("scrollHeight");
-        //console.log(divHeight);
-        //$("#messages-list-div").scrollTo(0);
-        //$("#messages-list-div").stop().animate({ scrollTop: $("#messages-list-div").prop("scrollHeight")stop()}, 1000);
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+        let divScrollHeight = $("#messages-list-div")[0].scrollHeight;
+        $("#messages-list-div").scrollTop(divScrollHeight);
     }
 
     handleInput(key, e) {
@@ -64,6 +65,7 @@ export default class Chat extends Component {
                 }));
                 document.getElementById('btn-input').value = '';
                 this.state.message = '';
+                this.scrollToBottom();
             })
             .catch(error => {
                 console.log(error);

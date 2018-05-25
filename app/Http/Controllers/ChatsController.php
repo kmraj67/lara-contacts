@@ -34,7 +34,7 @@ class ChatsController extends Controller
      */
     public function fetchMessages()
     {
-        return Message::with('user')->orderBy("id", "DESC")->get();
+        return Message::with('user')->orderBy("id", "ASC")->get();
     }
 
     /**
