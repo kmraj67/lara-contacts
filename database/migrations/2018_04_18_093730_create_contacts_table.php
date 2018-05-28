@@ -14,12 +14,15 @@ class CreateContactsTable extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->bigInteger('mobile');
             $table->string('address1');
             $table->string('address2');
             $table->timestamps();
+            $table->index('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -15,13 +15,13 @@ class CreateUserGroupsTable extends Migration
     {
         Schema::create('user_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('message_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('group_id');
             $table->timestamps();
-            $table->index('message_id');
-            $table->foreign('message_id')->references('id')->on('messages');
             $table->index('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->index('group_id');
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 

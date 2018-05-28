@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Seeder;
 
 class CreateUsersTable extends Migration
 {
@@ -26,6 +27,17 @@ class CreateUsersTable extends Migration
             $table->index('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
         });
+
+        DB::table('users')->insert([
+            'role_id' => Config::get('constants.roles.admin'),
+            'email' => 'krishan.mohan@kiwitech.com',
+            'password' => bcrypt('User@123'),
+            'first_name' => 'Krishan',
+            'last_name' => 'Mohan',
+            'status' => Config::get('constants.status.active'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 
     /**

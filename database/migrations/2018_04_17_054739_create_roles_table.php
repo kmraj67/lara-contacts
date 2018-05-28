@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Seeder;
 
 class CreateRolesTable extends Migration
 {
@@ -19,6 +20,21 @@ class CreateRolesTable extends Migration
             $table->smallInteger('status');
             $table->timestamps();
         });
+
+        DB::table('roles')->insert([
+            [
+                'name' => 'Admin',
+                'status' => Config::get('constants.status.active'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'User',
+                'status' => Config::get('constants.status.active'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        ]);
     }
 
     /**
