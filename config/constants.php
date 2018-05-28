@@ -8,5 +8,9 @@ return [
 	'roles' => [
 		'admin' => 1,
 		'user' => 2
+	],
+	'groups' => [
+		'general' => 'general',
+		'one_to_one' => 'one_to_one'
 	]
 ];
